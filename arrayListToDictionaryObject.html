@@ -1,0 +1,61 @@
+<script>
+    var original = [
+        {id: 123, name: "Bob", dob: "1/1/2011"},
+        {id: 456, name: "Joe", dob: "2/2/2022"}
+    ];
+
+    var desired = {
+        123: {name: "Bob", dob: "1/1/2011"},
+        456: {name: "Joe", dob: "2/2/2022"}
+    };
+
+    function arrayToObject(inputArray) {
+
+//initialize empty output object
+        var outputObject = {};
+
+//Loop through list indexes
+        for (var i = 0; i < original.length; i++) {
+//pull one item off using index
+            var item = original[i];
+
+//copy id before removing it!
+            var id = item["id"];
+
+//remove id from object
+            delete item.id;
+
+// using id as the key; add item to output object
+            outputObject[id] = item;
+        }
+        return outputObject;
+    }
+
+    function print(data){
+        console.log(arrayToObject(original));
+        document.body.innerHTML += "<br><br>" + data + "<br><br>";
+    }
+    
+    function prettyPrint(data){
+        console.log(arrayToObject(original));
+        var s = JSON.stringify(data, null, '\t');
+        s = s.replace(/\n/g,"<br>");
+        s = s.replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+        document.body.innerHTML += s;
+    }
+
+    function init() {
+        var output = arrayToObject(original);
+
+        print("original:");
+        prettyPrint(original);
+
+        print("desired");
+        prettyPrint(desired);
+
+        print("output:");
+        prettyPrint(output);
+    }
+    document.addEventListener("DOMContentLoaded", init);
+
+</script>
